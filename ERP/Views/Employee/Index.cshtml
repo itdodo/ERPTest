@@ -1,0 +1,200 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        // prepare the data
+        var data = new Array();
+        var firstNames =
+        [
+            "Andrew", "Nancy", "Shelley", "Regina", "Yoshi", "Antoni", "Mayumi", "Ian", "Peter", "Lars", "Petra", "Martin", "Sven", "Elio", "Beate", "Cheryl", "Michael", "Guylene"
+        ];
+        var lastNames =
+        [
+            "Fuller", "Davolio", "Burke", "Murphy", "Nagase", "Saavedra", "Ohno", "Devling", "Wilson", "Peterson", "Winkler", "Bein", "Petersen", "Rossi", "Vileid", "Saylor", "Bjorn", "Nodier"
+        ];
+        var productNames =
+        [
+            "Black Tea", "Green Tea", "Caffe Espresso", "Doubleshot Espresso", "Caffe Latte", "White Chocolate Mocha", "Cramel Latte", "Caffe Americano", "Cappuccino", "Espresso Truffle", "Espresso con Panna", "Peppermint Mocha Twist"
+        ];
+        var priceValues =
+        [
+            "2.25", "1.5", "3.0", "3.3", "4.5", "3.6", "3.8", "2.5", "5.0", "1.75", "3.25", "4.0"
+        ];
+        for (var i = 0; i < 200; i++) {
+            var row = {};
+            var productindex = Math.floor(Math.random() * productNames.length);
+            var price = parseFloat(priceValues[productindex]);
+            var quantity = 1 + Math.round(Math.random() * 10);
+            row["firstname"] = firstNames[Math.floor(Math.random() * firstNames.length)];
+            row["lastname"] = lastNames[Math.floor(Math.random() * lastNames.length)];
+            row["productname"] = productNames[productindex];
+            row["price"] = price;
+            row["quantity"] = quantity;
+            row["total"] = price * quantity;
+            data[i] = row;
+        }
+        var source =
+        {
+            localData: data,
+            dataType: "array",
+            dataFields:
+            [
+                { name: 'firstname', type: 'string' },
+                { name: 'lastname', type: 'string' },
+                { name: 'productname', type: 'string' },
+                { name: 'quantity', type: 'number' },
+                { name: 'price', type: 'number' },
+                { name: 'total', type: 'number' }
+            ]
+        };
+        var dataAdapter = new $.jqx.dataAdapter(source);
+
+        $("#table").jqxDataTable(
+        {
+            width: '100%',
+            //height:'100%',
+            pageable: true,
+            pagerButtonsCount: 10,
+            source: dataAdapter,
+            columnsResize: true,
+            showToolbar: true,
+            sortable: true,
+            filterable: true,
+            filterMode: 'advanced',
+            columns: [
+              { text: 'Name', dataField: 'firstname', width: 200 },
+              { text: 'Last Name', dataField: 'lastname', width: 200 },
+              { text: 'Product', editable: false, dataField: 'productname', width: 180 },
+              { text: 'Quantity', dataField: 'quantity', width: 80, cellsAlign: 'right', align: 'right' },
+              { text: 'Unit Price', dataField: 'price', width: 90, cellsAlign: 'right', align: 'right', cellsFormat: 'c2' },
+              { text: 'Total', dataField: 'total', cellsAlign: 'right', align: 'right', cellsFormat: 'c2' }
+            ],
+            renderToolbar: function (toolBar) {
+                var toTheme = function (className) {
+                    if (theme == "") return className;
+                    return className + " " + className + "-" + theme;
+                }
+                //console.info(toTheme('jqx-icon-plus'));
+                // appends buttons to the status bar.
+                var container = $("<div style='overflow: hidden; position: relative; height: 100%; width: 100%;'></div>");
+                var buttonTemplate = "<div style='float: left; padding: 3px; margin: 2px;'><div style='margin: 4px; width: 16px; height: 16px;'></div></div>";
+                var addButton = $(buttonTemplate);
+                var editButton = $(buttonTemplate);
+                var deleteButton = $(buttonTemplate);
+                var cancelButton = $(buttonTemplate);
+                var updateButton = $(buttonTemplate);
+                container.append(addButton);
+                container.append(editButton);
+                container.append(deleteButton);
+                container.append(cancelButton);
+                container.append(updateButton);
+                toolBar.append(container);
+                addButton.jqxButton({ cursor: "pointer", enableDefault: false, height: 25, width: 25 });
+                addButton.find('div:first').addClass('jqx-icon-plus');
+                addButton.jqxTooltip({ position: 'bottom', content: "Add" });
+                editButton.jqxButton({ cursor: "pointer", disabled: true, enableDefault: false, height: 25, width: 25 });
+                editButton.find('div:first').addClass('jqx-icon-edit');
+                editButton.jqxTooltip({ position: 'bottom', content: "Edit" });
+                deleteButton.jqxButton({ cursor: "pointer", disabled: true, enableDefault: false, height: 25, width: 25 });
+                deleteButton.find('div:first').addClass('jqx-icon-delete');
+                deleteButton.jqxTooltip({ position: 'bottom', content: "Delete" });
+                updateButton.jqxButton({ cursor: "pointer", disabled: true, enableDefault: false, height: 25, width: 25 });
+                updateButton.find('div:first').addClass('jqx-icon-save');
+                updateButton.jqxTooltip({ position: 'bottom', content: "Save Changes" });
+                cancelButton.jqxButton({ cursor: "pointer", disabled: true, enableDefault: false, height: 25, width: 25 });
+                cancelButton.find('div:first').addClass('jqx-icon-cancel');
+                cancelButton.jqxTooltip({ position: 'bottom', content: "Cancel" });
+                //var updateButtons = function (action) {
+                //    switch (action) {
+                //        case "Select":
+                //            addButton.jqxButton({ disabled: false });
+                //            deleteButton.jqxButton({ disabled: false });
+                //            editButton.jqxButton({ disabled: false });
+                //            cancelButton.jqxButton({ disabled: true });
+                //            updateButton.jqxButton({ disabled: true });
+                //            break;
+                //        case "Unselect":
+                //            addButton.jqxButton({ disabled: false });
+                //            deleteButton.jqxButton({ disabled: true });
+                //            editButton.jqxButton({ disabled: true });
+                //            cancelButton.jqxButton({ disabled: true });
+                //            updateButton.jqxButton({ disabled: true });
+                //            break;
+                //        case "Edit":
+                //            addButton.jqxButton({ disabled: true });
+                //            deleteButton.jqxButton({ disabled: true });
+                //            editButton.jqxButton({ disabled: true });
+                //            cancelButton.jqxButton({ disabled: false });
+                //            updateButton.jqxButton({ disabled: false });
+                //            break;
+                //        case "End Edit":
+                //            addButton.jqxButton({ disabled: false });
+                //            deleteButton.jqxButton({ disabled: false });
+                //            editButton.jqxButton({ disabled: false });
+                //            cancelButton.jqxButton({ disabled: true });
+                //            updateButton.jqxButton({ disabled: true });
+                //            break;
+                //    }
+                //}
+                //var rowIndex = null;
+                //$("#table").on('rowSelect', function (event) {
+                //    var args = event.args;
+                //    rowIndex = args.index;
+                //    updateButtons('Select');
+                //});
+                //$("#table").on('rowUnselect', function (event) {
+                //    updateButtons('Unselect');
+                //});
+                //$("#table").on('rowEndEdit', function (event) {
+                //    updateButtons('End Edit');
+                //});
+                //$("#table").on('rowBeginEdit', function (event) {
+                //    updateButtons('Edit');
+                //});
+                //addButton.click(function (event) {
+                //    if (!addButton.jqxButton('disabled')) {
+                //        // add new empty row.
+                //        $("#table").jqxDataTable('addRow', null, {}, 'first');
+                //        // select the first row and clear the selection.
+                //        $("#table").jqxDataTable('clearSelection');
+                //        $("#table").jqxDataTable('selectRow', 0);
+                //        // edit the new row.
+                //        $("#table").jqxDataTable('beginRowEdit', 0);
+                //        updateButtons('add');
+                //    }
+                //});
+                //cancelButton.click(function (event) {
+                //    if (!cancelButton.jqxButton('disabled')) {
+                //        // cancel changes.
+                //        $("#table").jqxDataTable('endRowEdit', rowIndex, true);
+                //    }
+                //});
+                //updateButton.click(function (event) {
+                //    if (!updateButton.jqxButton('disabled')) {
+                //        // save changes.
+                //        $("#table").jqxDataTable('endRowEdit', rowIndex, false);
+                //    }
+                //});
+                //editButton.click(function () {
+                //    if (!editButton.jqxButton('disabled')) {
+                //        $("#table").jqxDataTable('beginRowEdit', rowIndex);
+                //        updateButtons('edit');
+                //    }
+                //});
+                //deleteButton.click(function () {
+                //    if (!deleteButton.jqxButton('disabled')) {
+                //        $("#table").jqxDataTable('deleteRow', rowIndex);
+                //        updateButtons('delete');
+                //    }
+                //});
+            }
+        });
+    });
+    </script>
+    }
+    <div id="table"> 
+    </div>
+
