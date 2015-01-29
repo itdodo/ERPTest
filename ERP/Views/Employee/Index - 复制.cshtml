@@ -1,8 +1,4 @@
-﻿    
-<link href="~/Scripts/artDialog/css/ui-dialog.css" rel="stylesheet" />
-<script src="~/Scripts/artDialog/dist/dialog-min.js"></script>
-<script src="~/Scripts/artDialog/dist/dialog-plus-min.js"></script>
-<script type="text/javascript">
+﻿    <script type="text/javascript">
     $(document).ready(function () {
         // prepare the data
         var data = new Array();
@@ -54,12 +50,15 @@
         $("#table").jqxDataTable(
         {
             width: '100%',
+            //height:'100%',
             pageable: true,
             pagerButtonsCount: 10,
             source: dataAdapter,
             columnsResize: true,
             showToolbar: true,
             sortable: true,
+            filterable: true,
+            filterMode: 'advanced',
             columns: [
               { text: 'Name', dataField: 'firstname', width: 200 },
               { text: 'Last Name', dataField: 'lastname', width: 200 },
@@ -90,7 +89,7 @@
                 toolBar.append(container);
                 addButton.jqxButton({ cursor: "pointer", enableDefault: false, height: 25, width: 25 });
                 addButton.find('div:first').addClass('jqx-icon-plus');
-                addButton.jqxTooltip({ position: 'bottom', content: "添加" });
+                addButton.jqxTooltip({ position: 'bottom', content: "Add" });
                 editButton.jqxButton({ cursor: "pointer", disabled: true, enableDefault: false, height: 25, width: 25 });
                 editButton.find('div:first').addClass('jqx-icon-edit');
                 editButton.jqxTooltip({ position: 'bottom', content: "Edit" });
@@ -103,8 +102,6 @@
                 cancelButton.jqxButton({ cursor: "pointer", disabled: true, enableDefault: false, height: 25, width: 25 });
                 cancelButton.find('div:first').addClass('jqx-icon-cancel');
                 cancelButton.jqxTooltip({ position: 'bottom', content: "Cancel" });
-
-                addButton.bind("click",doCreate);
                 //var updateButtons = function (action) {
                 //    switch (action) {
                 //        case "Select":
@@ -190,18 +187,7 @@
                 //});
             }
         });
-        function doCreate() {
-            var d = dialog({
-                title: '添加员工',
-                width:400,
-                hight:300,
-                url:'/Employee/Create'
-            });
-            d.showModal();
-        }
     });
-
-
     </script>
     
     <div id="table"> 

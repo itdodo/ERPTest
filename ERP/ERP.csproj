@@ -172,12 +172,24 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\ERP.mdf" />
+    <Content Include="App_Data\ERP_log.ldf">
+      <DependentUpon>ERP.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\artDialog\css\ui-dialog.css" />
+    <Content Include="Scripts\artDialog\dist\dialog-min.js" />
+    <Content Include="Scripts\artDialog\dist\dialog-plus-min.js" />
+    <Content Include="Scripts\artDialog\dist\dialog-plus.js" />
+    <Content Include="Scripts\artDialog\dist\dialog.js" />
+    <Content Include="Scripts\artDialog\lib\jquery-1.10.2.js" />
+    <Content Include="Scripts\artDialog\lib\require.js" />
+    <Content Include="Scripts\artDialog\lib\sea.js" />
     <Content Include="Scripts\DUI\avatars\avatar.png" />
     <Content Include="Scripts\DUI\avatars\avatar1.png" />
     <Content Include="Scripts\DUI\avatars\avatar2.png" />
@@ -706,9 +718,22 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Employee\Index - 复制.cshtml" />
+    <Content Include="Views\Employee\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <ProjectReference Include="..\ERP.BLL\ERP.BLL.csproj">
+      <Project>{4f2df3e7-34f4-4a0a-9be2-70a0a1046e1a}</Project>
+      <Name>ERP.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ERP.DAL\ERP.DAL.csproj">
+      <Project>{caab3699-0cd2-4555-bd3c-6a3b4f3d9a58}</Project>
+      <Name>ERP.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ERP.Model\ERP.Model.csproj">
+      <Project>{240294c3-d4f1-4c7c-9017-5712cecda931}</Project>
+      <Name>ERP.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

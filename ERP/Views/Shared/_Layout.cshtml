@@ -635,10 +635,10 @@
                 else $(this).closest('li').removeClass('selected');
             });
 
-            $("#mmnue a").click(function () {
+            $("#mmnue .submenu a").click(function () {
                
                 $("#page-content").load($(this).attr("data-href"));
-
+                console.info(1);
                 $("#mmnue li").removeClass("active");
 
                 $(this).parent().addClass("active");
