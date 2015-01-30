@@ -10,7 +10,7 @@ namespace ERP.Model
 {
     public class Employee
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
         public string EmpName { get; set; }
         public int Age { get; set; }

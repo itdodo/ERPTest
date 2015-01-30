@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,6 +50,10 @@
     <ProjectReference Include="..\ERP.DAL\ERP.DAL.csproj">
       <Project>{caab3699-0cd2-4555-bd3c-6a3b4f3d9a58}</Project>
       <Name>ERP.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ERP.Model\ERP.Model.csproj">
+      <Project>{240294c3-d4f1-4c7c-9017-5712cecda931}</Project>
+      <Name>ERP.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

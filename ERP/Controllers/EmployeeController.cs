@@ -27,6 +27,8 @@ namespace ERP.Controllers
         [HttpPost]
         public ActionResult Create(Employee model)
         {
+            var empBll = new EmployeeBLL();
+            var result = empBll.CreateEmployee(model);
             return View();
         }
     }
